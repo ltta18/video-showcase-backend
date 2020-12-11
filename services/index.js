@@ -2,7 +2,7 @@ const {Video} = require('../models')
 const {ValidationError} = require('../errors')
 
 module.exports = class VideoService {
-  async uploadVideo({title, author, url, length}) {
+  async uploadVideo({title, author, url}) {
     try {
       const newVideo = new Video({
         title,
@@ -19,7 +19,11 @@ module.exports = class VideoService {
   }
 
   async getAllVideos() {
-    return Video.find({}, "_id title author url view length")
+    return Video.find({}, "_id title author url view createAt")
+  }
+
+  async getVideosByTitle(title) {
+    return Video.find({title: new RegExp(title.toLowerCase()+'*')}, "_id title author url view createAt")
   }
 
   async getVideo(_id) {

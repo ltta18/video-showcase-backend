@@ -16,7 +16,6 @@ router.post('/video', [GridFSMiddleware()], asyncWrapper(async (req, res) => {
     title: req.body.title,
     author: req.body.author,
     url: `http://localhost:3001/video/mp4/${id}`,
-    length: req.body.length
   })
   res.send({originalname, mimetype, id, size, title: req.body.title})
 }))
@@ -29,6 +28,11 @@ router.get('/video', asyncWrapper(async (req, res) => {
 router.get('/video/:id', asyncWrapper(async (req, res) => {
   const video = await videoService.getVideo(req.params.id);
   res.send(video)
+}))
+
+router.get('/video/title/:title', asyncWrapper(async (req, res) => {
+  const videos = await videoService.getVideosByTitle(req.params.title);
+  res.send(videos)
 }))
 
 router.get('/video/mp4/:id', asyncWrapper(async (req, res) => {

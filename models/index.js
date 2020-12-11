@@ -14,12 +14,6 @@ const videoSchema = new Schema({
   view: {
     type: Number, default: 0,
   },
-  createAt: {
-    type: Date, default: Date.now(),
-  },
-  updateAt: {
-    type: Date, default: Date.now(),
-  },
   deletedAt: {
     type: Date, required: false,
   },
